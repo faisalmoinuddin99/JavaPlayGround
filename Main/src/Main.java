@@ -1,45 +1,80 @@
-/*
-*************************** Dynamic Method Dispatcher ******************************
- */
+import java.util.Scanner;
+import java.util.stream.IntStream;
 
-class Vehicle {
-    public void start(){
-        System.out.println("Engine Started");
-    }
-    public void accelerate(){
-        System.out.println("Acceleration");
-    }
-    public void brake(){
-        System.out.println("Brake");
-    }
-    public void clutch(){
-        System.out.println("Clutch");
-    }
-}
-class Car extends Vehicle{
-
-}
-
-class Bike extends Vehicle {
-    public void start(){
-        System.out.println("Bike Engine Started");
-    }
-    public void noOfSeats(int seat){
-        System.out.println(seat);
-    }
-}
 public class Main {
     public static void main(String[] args) {
-        Vehicle car = new Car();
-        car.start(); // Engine Started
-        car.accelerate(); // Acceleration
-        car.brake(); // Brake
+        int[] a = {};
+        a = add(a);
+        a = add(a);
+        a = add(a);
+        a = add(a);
 
-        Vehicle bike = new Bike();
-        bike.start(); // Bike Engine Started
-        //     bike.noOfSeats(2); Error
-        Bike heroHonda = new Bike();
-        heroHonda.start(); // Bike Engine Started
-        heroHonda.noOfSeats(2); // 2
+        System.out.println("Traversing the array :");
+        for (int i : a) {
+            System.out.print(i + " ");
+        }
+
+        System.out.println("Traversing the array :");
+        display(a);
+        int data = indexDeletion(a);
+        System.out.println("deleted element " + data);
+        Scanner sc = new Scanner(System.in);
+
+        int[] issueBook = {};
+
+       int [] result = removeTheElement(a,2);
+        System.out.println("result");
+       display(result);
+    }
+
+    public static int[] add(int[] a) {
+        int[] array = new int[a.length + 1];
+        for (int i = 0; i < a.length; i++) {
+            array[i] = a[i];
+        }
+        System.out.println("Enter the element:");
+        Scanner sc = new Scanner(System.in);
+        array[array.length - 1] = sc.nextInt();
+
+        return array;
+    }
+
+    public static int indexDeletion(int[] a) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the element which want to delete :");
+        int j = sc.nextInt();
+        for (int i = 0, k = 0; i < a.length; i++) {
+            if (a[i] != j) {
+                a[k++] = a[i];
+            }
+        }
+        return j;
+
+    }
+
+    public static void display(int[] a) {
+        for (int i : a) {
+            System.out.println(i);
+        }
+    }
+
+    public static int[] removeTheElement(int[] arr,
+                                         int index) {
+
+        // If the array is empty
+        // or the index is not in array range
+        // return the original array
+        if (arr == null
+                || index < 0
+                || index >= arr.length) {
+
+            return arr;
+        }
+
+        // return the resultant array
+        return IntStream.range(0, arr.length)
+                .filter(i -> i != index)
+                .map(i -> arr[i])
+                .toArray();
     }
 }
