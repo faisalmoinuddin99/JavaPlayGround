@@ -1,80 +1,33 @@
-import java.util.Scanner;
-import java.util.stream.IntStream;
-
 public class Main {
     public static void main(String[] args) {
-        int[] a = {};
-        a = add(a);
-        a = add(a);
-        a = add(a);
-        a = add(a);
+       /* Method 1: Using Sum method
+        int[] arr = {1,2,4,5};
+        int n = arr.length + 1;
+//        System.out.println(n);
+        int Sn = ( n * (n + 1) ) / 2 ;
+       // System.out.println(Sn);
+        int sumOfArray = 0;
+        for(int i = 0; i < arr.length ; i++){
+            sumOfArray += arr[i];
+        }
+       // System.out.println("Sum of array " + sumOfArray);
+        int findMissingNumber = Sn - sumOfArray ;
+        System.out.println("Missing number is : " + findMissingNumber);
 
-        System.out.println("Traversing the array :");
-        for (int i : a) {
-            System.out.print(i + " ");
+        */
+
+        // Method 2: using XOR method
+        int [] arr = {1,2,3,4,7,6,9,8,10};
+        int xor1 = arr[0];
+        for (int i = 1; i < arr.length; i++){
+            xor1 = xor1 ^ arr[i] ;
+        }
+        int xor2 = 1;
+        for(int i = 2; i<=10; i++){
+            xor2 = xor2 ^ i;
         }
 
-        System.out.println("Traversing the array :");
-        display(a);
-        int data = indexDeletion(a);
-        System.out.println("deleted element " + data);
-        Scanner sc = new Scanner(System.in);
+        System.out.println(xor1 ^ xor2);
 
-        int[] issueBook = {};
-
-       int [] result = removeTheElement(a,2);
-        System.out.println("result");
-       display(result);
-    }
-
-    public static int[] add(int[] a) {
-        int[] array = new int[a.length + 1];
-        for (int i = 0; i < a.length; i++) {
-            array[i] = a[i];
-        }
-        System.out.println("Enter the element:");
-        Scanner sc = new Scanner(System.in);
-        array[array.length - 1] = sc.nextInt();
-
-        return array;
-    }
-
-    public static int indexDeletion(int[] a) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the element which want to delete :");
-        int j = sc.nextInt();
-        for (int i = 0, k = 0; i < a.length; i++) {
-            if (a[i] != j) {
-                a[k++] = a[i];
-            }
-        }
-        return j;
-
-    }
-
-    public static void display(int[] a) {
-        for (int i : a) {
-            System.out.println(i);
-        }
-    }
-
-    public static int[] removeTheElement(int[] arr,
-                                         int index) {
-
-        // If the array is empty
-        // or the index is not in array range
-        // return the original array
-        if (arr == null
-                || index < 0
-                || index >= arr.length) {
-
-            return arr;
-        }
-
-        // return the resultant array
-        return IntStream.range(0, arr.length)
-                .filter(i -> i != index)
-                .map(i -> arr[i])
-                .toArray();
     }
 }
