@@ -1,33 +1,82 @@
+class MergeSortImpl implements MergeSort {
+
+    @Override
+    public void merge(int[] A, int left, int mid, int right) {
+        int i, j, k ;
+        int[] B = new int[100] ;
+        i = left;
+        j = mid + 1;
+        k = left;
+
+        while (i <= mid && j <= right)
+        {
+            if (A[i] < A[j])
+            {
+                B[k] = A[i];
+                i++;
+                k++;
+            }
+            else
+            {
+                B[k] = A[j];
+                j++;
+                k++;
+            }
+        }
+        while (i <= mid)
+        {
+            B[k] = A[i];
+            k++;
+            i++;
+        }
+        while (j <= right)
+        {
+            B[k] = A[j];
+            k++;
+            j++;
+        }
+        for ( i = left; i <= right; i++)
+        {
+            A[i] = B[i];
+        }
+
+    }
+
+
+    @Override
+    public void sort(int[] a, int left, int right) {
+        if(left < right){
+            // find the middle point
+            int mid = left + (right - left) / 2 ;
+
+            // Sort first and second halves
+            sort(a,left, mid) ;
+            sort(a, mid + 1, right);
+
+            // Merge the sorted Halves
+            merge(a,left, mid, right);
+        }
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-       /* Method 1: Using Sum method
-        int[] arr = {1,2,4,5};
-        int n = arr.length + 1;
-//        System.out.println(n);
-        int Sn = ( n * (n + 1) ) / 2 ;
-       // System.out.println(Sn);
-        int sumOfArray = 0;
-        for(int i = 0; i < arr.length ; i++){
-            sumOfArray += arr[i];
+        int[] arr = {6,8,1,0,5,10} ;
+        int len = arr.length ;
+        System.out.println("Print Array before sorting: ");
+        printArray(arr) ;
+        MergeSortImpl msi = new MergeSortImpl();
+
+        msi.sort(arr,0, arr.length - 1);
+
+        System.out.println();
+        System.out.println("Print Array after sorting: ");
+        printArray(arr) ;
+    }
+    public static int[] printArray(int[] a){
+        for(int i : a) {
+            System.out.print(i + " ");
         }
-       // System.out.println("Sum of array " + sumOfArray);
-        int findMissingNumber = Sn - sumOfArray ;
-        System.out.println("Missing number is : " + findMissingNumber);
-
-        */
-
-        // Method 2: using XOR method
-        int [] arr = {1,2,3,4,7,6,9,8,10};
-        int xor1 = arr[0];
-        for (int i = 1; i < arr.length; i++){
-            xor1 = xor1 ^ arr[i] ;
-        }
-        int xor2 = 1;
-        for(int i = 2; i<=10; i++){
-            xor2 = xor2 ^ i;
-        }
-
-        System.out.println(xor1 ^ xor2);
-
+        return a ;
     }
 }
